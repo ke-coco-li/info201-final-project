@@ -2,7 +2,7 @@
 ## Project Description
 - What is the dataset you'll be working with?  Please include background on who collected the data, where you accessed it, and any additional information we should know about how this data came to be.
 
--- The datasets our team will be working with come from [Zillow Research](https://www.zillow.com/research/data/). Specifically, we'll be analyzing Metro Median Rental Prices by Housing Type, Metro Median Household Income, and the Metro Rent Affordability datasets. There are a total of **13** datasets that can be joined together by region id and regionname. Zillow provided these datasets and updates them quarterly.  
+  + The datasets our team will be working with come from [Zillow Research](https://www.zillow.com/research/data/). Specifically, we'll be analyzing Metro Median Rental Prices by Housing Type, Metro Median Household Income, and the Metro Rent Affordability datasets. There are a total of **13** datasets that can be joined together by region id and regionname. Zillow provided these datasets and updates them quarterly.  
 
 - Who is your target audience?  Depending on the domain of your data, there may be a variety of audiences interested in using the dataset.  You should hone in on one of these audiences.
 -What does your audience want to learn from your data?  Please list out at least 3 specific questions that your project will answer for your audience.
