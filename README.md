@@ -18,11 +18,11 @@
 ## Technical Description
 - How will we be reading in your data?
 
-  + We will be reading it as static CSV files.
+  + Our project will be presented as a Shiny app. We will be reading our data using static CSV files obtained from Zillow Reasearch as we metioned in the project descrption.
 
 - What types of data-wrangling will we need to do to your data?
-
-  + We will combine similar datasets in order to answer specific questions.
+ 
+  + We will combine datasets with the same columns to make it easier to analyze the data. We will also reshape our datesets in order to answer specific questions such as comparing the ratings to months.
   
 - What (major/new) libraries will be using in this project?
   
