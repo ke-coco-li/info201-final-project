@@ -25,12 +25,10 @@
   + We will combine similar datasets in order to answer specific questions.
   
 - What (major/new) libraries will be using in this project?
-
-  + Possible libraries we may be using are:
   
-     [Plotly](https://plot.ly/ggplot2/) for scatterplots, boxplots, histograms, area charts, etc...
+  + [Plotly](https://plot.ly/ggplot2/) for scatterplots, boxplots, histograms, area charts, etc...
      
-     [Leaflet for R](https://rstudio.github.io/leaflet/) for interactive maps
+  + [Leaflet for R](https://rstudio.github.io/leaflet/) for interactive maps
 
 - What major challenges do we anticipate?
 
