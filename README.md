@@ -12,8 +12,8 @@
 
     + What are the trends of monthly rent in different states by housing types?
     + Based on your income and rent affordability limit, which cities can you afford to live in?
-    +
-    +
+    + Which city in the United States has the highest average monthly rent in the past 10 years?
+    + Which city in the United States has the highest increase/decrease in average monthly rent in the past 10 years?
   
 ## Technical Description
 - How will we be reading in your data?
