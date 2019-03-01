@@ -26,6 +26,7 @@
 
   + Possible libraries we may be using are:
      [Plotly](https://plot.ly/ggplot2/) for scatterplots, boxplots, histograms, area charts, etc...
+     
      [Leaflet for R](https://rstudio.github.io/leaflet/) for interactive maps
 
 - What major challenges do you anticipate?
