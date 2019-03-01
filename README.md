@@ -21,10 +21,12 @@
 
 - What types of data-wrangling (reshaping, reformatting, etc.) will you need to do to your data?
 
-
+  + We will combine similar datasets in order to answer specific questions.
+  
 - What (major/new) libraries will be using in this project (no need to list common libraries that are used in many projects such as dplyr)
 
   + Possible libraries we may be using are:
+  
      [Plotly](https://plot.ly/ggplot2/) for scatterplots, boxplots, histograms, area charts, etc...
      
      [Leaflet for R](https://rstudio.github.io/leaflet/) for interactive maps
