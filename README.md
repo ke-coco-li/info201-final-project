@@ -8,7 +8,7 @@
 
   + The target audience for our rental housing visualizations and report would be *current and prospective renters*. We'd like to provide trends and analysis on where rental housing prices are most affordable, how they've changed over the years, and provide other additional information on the current rental housing landscape. 
   
-  Some of the questions our project will answer includes:
+- Some of the questions our project will answer includes:
 
     + What are the trends of monthly rent in different states by housing types?
     + Based on your income and rent affordability limit, which cities can you afford to live in?
