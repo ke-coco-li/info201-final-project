@@ -22,7 +22,7 @@
 
 - What types of data-wrangling will we need to do to your data?
 
-  We will need to perform join functions in R Studio to combine our datasets using unique identifiers to make it easier to analyze the data, as well as to make it more relevant for our target audience. Cleaning our dataset will be essential, and identifying Null values will also help us gain a better understanding of the completeness and viability of our datasets. We will also need to perform aggregate functions using base R and dpylr to help identify time-based trends and rolling averages from our data. Additionally, we will reshape our datasets in order to answer specific questions such as comparing the ratings to months.
+  We will need to perform join functions in R Studio to combine our datasets using unique identifiers to make it easier to analyze the data, as well as to make it more relevant for our target audience. Cleaning our dataset will be essential, and identifying Null values will also help us gain a better understanding of the completeness and viability of our datasets. We will also need to perform aggregate functions using base R and dpylr to help identify time-based trends and rolling averages from our data. Additionally, we will reshape our datasets, using gather functions if needed, in order to answer specific questions such as comparing the ratings to months and prices over the years.
 
   We will use statistical analysis to show the relationship between the rent, income, cities, and other characteristics in corresponding charts or maps in order to answer the questions listed above.
 
@@ -36,7 +36,7 @@
 
   +[CSS](https://shiny.rstudio.com/articles/css.html) CSS for styling our Shiny application and giving it a more polished look
 
-In addition to the libraries listed above, we will also be incorporating dplyr and stringr as needed. 
+In addition to the libraries listed above, we will also be incorporating dplyr and stringr as needed.
 
 - What major challenges do we anticipate?
 
