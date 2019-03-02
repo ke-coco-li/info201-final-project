@@ -30,6 +30,8 @@
      
   + [Leaflet for R](https://rstudio.github.io/leaflet/) for interactive maps
 
+  We will use statistical analysis to show the relationship between the rent, income, cities, and other characteristics in corresponding charts or maps in order to answer the qeustions listed above.
+  
 - What major challenges do we anticipate?
 
   + We anticipate that the data wrangling portion will be most difficult. It may also be a challenge to figure out how to integrate interactive visualizations into our report. 
