@@ -34,7 +34,7 @@
 
   + [Shiny](http://shiny.rstudio.com/tutorial/) for creating interactive web applications
 
-  +[CSS](https://shiny.rstudio.com/articles/css.html) CSS for styling our Shiny application and giving it a more polished look
+  + [CSS](https://shiny.rstudio.com/articles/css.html) for styling our Shiny application and giving it a more polished look
 
 In addition to the libraries listed above, we will also be incorporating dplyr and stringr as needed.
 
