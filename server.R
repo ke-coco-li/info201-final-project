@@ -4,7 +4,7 @@
 library(shiny)
 
 #Read in data
-source("build_map.R")
+source("./scripts/build_map.R")
 afford_data <- read.csv("data/Affordability_Wide_lat_long_rent_only.csv",
                         stringsAsFactors = F)
 
