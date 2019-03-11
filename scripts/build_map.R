@@ -8,6 +8,7 @@ build_map1 <- function(filtered_data, afford_perc, city_rank) {
   #inputs
   #afford_percent <- afford_perc
   #cit_rank <- city_rank
+  #test
   
   #filter data
   specific_data <- filtered_data %>% filter(
