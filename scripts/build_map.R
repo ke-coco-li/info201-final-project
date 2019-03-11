@@ -1,6 +1,9 @@
-# BuildMap file: function that returns a plotly map
+# BuildMap file: function that returns a leaflet map
 library(dplyr)
 library(leaflet)
+
+#load data
+
 
 #Build Map
 build_map1 <- function(filtered_data, afford_perc, city_rank) {
