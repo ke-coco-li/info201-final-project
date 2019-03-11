@@ -6,19 +6,20 @@ library(leaflet)
 build_map1 <- function(filtered_data, afford_perc, city_rank) {
   
   #inputs
-  #afford_percent <- afford_perc
+  afford_percent <- filtered_data["afford_perc"]
   #cit_rank <- city_rank
   #test
   
   #filter data
   specific_data <- filtered_data %>% filter(
-    SizeRank <= city_rank & X2018.12 <= afford_perc
+    SizeRank <= filtered_data["city_rank"] &
+      X2018.12 <= afford_percent
   )
   
   #convert rent affordability from numeric to categorical
-  lower_range <- (afford_perc - min(specific_data$X2018.12)) * .25 +
+  lower_range <- (afford_percent - min(specific_data$X2018.12)) * .25 +
     min(specific_data$X2018.12)
-  upper_range <- (afford_perc - min(specific_data$X2018.12)) * .75 +
+  upper_range <- (afford_percent - min(specific_data$X2018.12)) * .75 +
     min(specific_data$X2018.12)
   
   leaflet_data <- specific_data %>% mutate(
