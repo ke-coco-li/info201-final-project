@@ -25,12 +25,12 @@ server <- shinyServer(function(input, output) {
     state <- input$chosen_state
     cities <- one_b %>% filter(grepl(state, RegionName))
     selectInput("chosen_city",
-                label = "State of Your Interest",
+                label = "Choose A Metro City of Your Interest",
                 choices = cities$RegionName)
   })
   
   output$trend_plot <- renderPlot({
-    median_based_on_year <- function(data) {
+    reformat_colnames <- function(data) {
       r_data <- data %>% 
         filter(input$chosen_city == RegionName) %>%
         select(-SizeRank)
@@ -38,73 +38,59 @@ server <- shinyServer(function(input, output) {
       colnames(r_data) <- gsub("[.]", "-", colnames(r_data))
       r_data
     }
+    add_line <- function(data, colname) {
+      if (nrow(data) != 0) {
+        data2 <- melt(data, id = "RegionName")
+        data2$variable <- as.Date(paste0(data2$variable,"-01"), format = "%Y-%m-%d")
+        geom_line(data = data2, aes(x = variable, y = value, col = colname, group = 1))
+      }
+    }
     p <- ggplot()
     if ("All Homes" %in% input$home_types) {
-      home_data <- median_based_on_year(allHomes)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "All Homes", group = 1))
+      home_data <- reformat_colnames(allHomes)
+      p <- p + add_line(home_data, "All Homes")
     }
     if ("Studio" %in% input$home_types) {
-      home_data <- median_based_on_year(studio)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "Studio", group = 1))
+      home_data <- reformat_colnames(studio)
+      p <- p + add_line(home_data, "Studio")
     }
     if ("One Bedroom" %in% input$home_types) {
-      home_data <- median_based_on_year(one_b)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "One Bedroom", group = 1))
+      home_data <- reformat_colnames(one_b)
+      p <- p + add_line(home_data, "One Bedroom")
     }
     if ("Two Bedrooms" %in% input$home_types) {
-      home_data <- median_based_on_year(two_b)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "Two Bedroom", group = 1))
+      home_data <- reformat_colnames(two_b)
+      p <- p + add_line(home_data, "Two Bedrooms")
     }
     if ("Three Bedrooms" %in% input$home_types) {
-      home_data <- median_based_on_year(three_b)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "Three Bedroom", group = 1))
+      home_data <- reformat_colnames(three_b)
+      p <- p + add_line(home_data, "Three Bedrooms")
     }
     if ("Four Bedrooms" %in% input$home_types) {
-      home_data <- median_based_on_year(four_b)
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "Four Bedroom", group = 1))
+      home_data <- reformat_colnames(four_b)
+      p <- p + add_line(home_data, "Four Bedrooms")
     }
     if ("Five Bedrooms or More" %in% input$home_types) {
-      home_data <- median_based_on_year(five_b)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "Five Bedroom+", group = 1))
+      home_data <- reformat_colnames(five_b)
+      p <- p + add_line(home_data, "Five Bedrooms+")
     }
     if ("Condo And Co-op" %in% input$home_types) {
-      home_data <- median_based_on_year(condo_coop)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "Condo/Co-op", group = 1))
+      home_data <- reformat_colnames(condo_coop)
+      p <- p + add_line(home_data, "Condo/Co-op")
     }
     if ("Duplex And Triplex" %in% input$home_types) {
-      home_data <- median_based_on_year(duplex)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "Duplex/Triplex", group = 1))
+      home_data <- reformat_colnames(duplex)
+      p <- p + add_line(home_data, "Duplex/Triplex")
     }
     if ("Single Family Residence" %in% input$home_types) {
-      home_data <- median_based_on_year(sfr)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "SFR", group = 1))
+      home_data <- reformat_colnames(sfr)
+      p <- p + add_line(home_data, "SFR")
     }
     if ("Multi-family Residence (5+)" %in% input$home_types) {
-      home_data <- median_based_on_year(mfr)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "MFR", group = 1))
+      home_data <- reformat_colnames(mfr)
+      p <- p + add_line(home_data, "MFR")
     }
-    p + labs(x = "year", y = "median monthly rent", title = "Monthly Rent vs. Time")
+    p + labs(x = "year", y = "median monthly rent", title = "Monthly Rent vs. Time", colour = "Home types")
   })
   
   output$rentplot <- renderPlot({
