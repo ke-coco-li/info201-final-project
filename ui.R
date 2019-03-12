@@ -114,4 +114,3 @@ ui <- shinyUI(navbarPage(
   )
 )
 )
->>>>>>> alex
