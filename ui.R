@@ -92,25 +92,14 @@ ui <- shinyUI(navbarPage(
     sidebarLayout(
       sidebarPanel(
         textInput("state",
-                  label = "Type in A State of Interest",
-                  placeholder = "Enter full State name (eg. Texas)"),
-        selectInput(
-          "year",
-          label = "Year",
-          choices = c("2011",
-                      "2012",
-                      "2013",
-                      "2014",
-                      "2015",
-                      "2016",
-                      "2017",
-                      "2018")
-        )
+                  label = "Type In The State of Interest",
+                  value = "Washington",
+                  placeholder = "Enter full State name (eg. Texas)")
       ),
       mainPanel(
-        plotlyOutput("rentvsalesplot"),
-        p(
-          "*Data for some years was unavailable from the source which resulted in the 0's
+        plotOutput("rentplot"),
+        plotOutput("salesplot"),
+        p("*Data for some years was unavailable from the source which resulted in the 0's
           and low outliers shown in the data."
         )
       )
