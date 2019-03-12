@@ -20,6 +20,14 @@ build_map1 <- function(filtered_data, afford_perc, city_rank) {
   )
   
   #convert rent affordability from numeric to categorical
+  if (afford_perc < min(specific_data$X2018.12)) {
+    map_rent <- leaflet(data = specific_data) %>%
+      addProviderTiles("CartoDB.Positron") %>%
+      setView(lng = -98.583, lat = 40.833, zoom = 3.25) %>%
+      addPopups(lng = -98.583, lat = 40.833, paste("None of the selected cities
+                      fit the selected rent affordability percentage"))
+  } else {
+    
   lower_range <- (afford_perc - min(specific_data$X2018.12)) * .25 +
     min(specific_data$X2018.12)
   upper_range <- (afford_perc - min(specific_data$X2018.12)) * .75 +
@@ -27,14 +35,14 @@ build_map1 <- function(filtered_data, afford_perc, city_rank) {
   
   leaflet_data <- specific_data %>% mutate(
     afford_rank = cut(X2018.12,
-                      breaks = c(.15,lower_range,
+                      breaks = c(-Inf ,lower_range,
                                  upper_range, Inf),
                       labels = c("Most Affordable",
                                  "Average Affordability",
                                  "Least Affordable")
     )
   )
-
+  
   # Custom color for rent affordability breakdown
   palete_fn <- colorFactor(palette = "Spectral",
                            domain = leaflet_data$afford_rank,
@@ -67,7 +75,7 @@ build_map1 <- function(filtered_data, afford_perc, city_rank) {
     ) %>%
     addControl("Required Share of Income Spent on Rent (Median)",
                position = "topright")
+  }
   
 }
 
-?colorFactor
