@@ -4,16 +4,17 @@ library(shiny)
 library(leaflet)
 library(shinythemes)
 
-#Creating UI
-# Creating ui
+# Creating UI
 ui <- shinyUI(navbarPage(
   "Rent Statistics in the United States",
   fluid = TRUE, theme = shinytheme("superhero"),
   
   # tab panel #1:
   tabPanel(
-    "Example #1",
-    titlePanel("Example Title")
+    "Summary",
+    titlePanel("Summary"),
+    HTML(readLines("www/summary.html")),
+    includeCSS("www/css/custom.css")
   ),
   
   # tab panel #2: rent affordability map
@@ -52,9 +53,9 @@ ui <- shinyUI(navbarPage(
         leafletOutput("affordability_map")
       )
     )
-
   ),
-# tab panel #3:
+  
+  # tab panel #3:
   tabPanel(
     "Example #2",
     titlePanel("Example Title")
@@ -85,12 +86,11 @@ ui <- shinyUI(navbarPage(
       )
     )
   ),
-# tab panel #5:
+  # tab panel #5:
   tabPanel(
     "Example #4",
     titlePanel("Example Title")
   )
-
 )
 )
 

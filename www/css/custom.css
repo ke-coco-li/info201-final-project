@@ -1,0 +1,45 @@
+#summary-intro {
+  background-color:
+}
+
+.extra {
+  font-weight: bold;
+  text-align: center;
+}
+
+.card {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  color: #2b3e50;
+  line-height: 1.8;
+}
+
+.card > h5 {
+  margin-right: 0;
+  margin-left: 0;
+  font-weight: bold;
+  font-size: 1.2em;
+  line-height: 1.6;
+}
+
+.card .subtitle {
+  margin-bottom: 5px;
+  color: rgb(186, 186, 186);
+}
+
+.col {
+  width: 48%;
+  float: left;
+  margin-right: 20px;
+}
