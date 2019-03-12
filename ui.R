@@ -63,12 +63,17 @@ ui <- shinyUI(navbarPage(
   # tab panel #4:
   tabPanel(
     "Rent Trend Plot",
-    titlePanel("Median Monthly Rent from 2010 to 2019"),
+    titlePanel("Median Monthly Rent 2010-2019"),
+    p("As shown in the default plot, from 2010 to 2019, the median monthly rate within 
+      the scope of United States was in an increasing trend. It was quite stable during 
+      last 4 years and had a noticable drop between 2011 and 2014. For most of the states in the 
+      United States, the monthly rent trending was linearly increasing for the last 9 years, 
+      and may be continue rising in next few years."),
     sidebarLayout(
       sidebarPanel(
         textInput(
           "chosen_state", 
-          label = "Type in A State of Your Interest", 
+          label = "Type A State of Your Interest", 
           value = "United States", 
           placeholder = "Enter the abbreviation (eg. NY)"
         ),
@@ -81,7 +86,7 @@ ui <- shinyUI(navbarPage(
                            selected = "All Homes")
       ),
       mainPanel(
-        plotOutput("plot")
+        plotOutput("trend_plot")
       )
     )
   ),
