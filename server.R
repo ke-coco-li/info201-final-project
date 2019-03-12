@@ -5,10 +5,12 @@ library(shiny)
 library(dplyr)
 library(ggplot2)
 library(reshape2)
+library(tidyverse)
 
 #Read in data
 source("./scripts/build_map.R")
 source("./scripts/reorganize_data.R")
+source("./scripts/build_comparison.R")
 
 afford_data <- read.csv("data/Affordability_Wide_lat_long_rent_only.csv",
                         stringsAsFactors = F)
@@ -27,6 +29,7 @@ server <- shinyServer(function(input, output) {
                 choices = cities$RegionName)
   })
   
+<<<<<<< HEAD
   output$trend_plot <- renderPlot({
     median_based_on_year <- function(data) {
       r_data <- data %>% 
@@ -69,7 +72,6 @@ server <- shinyServer(function(input, output) {
     }
     if ("Four Bedrooms" %in% input$home_types) {
       home_data <- median_based_on_year(four_b)
-      home_data2 <- melt(home_data, id = "RegionName")
       home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
       p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "Four Bedroom", group = 1))
     }
@@ -104,5 +106,39 @@ server <- shinyServer(function(input, output) {
       p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "MFR", group = 1))
     }
     p + labs(x = "year", y = "median monthly rent", title = "Monthly Rent vs. Time")
+  })
+  
+  output$rentplot <- renderPlot({
+    rentset <- filter(dataset_rent, RegionName == input$state)
+    rentset <- mutate(rentset, "2011" = round(sum(rentset[2:13])/12), 
+                      "2012" = round(sum(rentset[14:25])/12),
+                      "2013" = round(sum(rentset[26:37])/12),
+                      "2014" = round(sum(rentset[38:49])/12),
+                      "2015" = round(sum(rentset[50:61])/12),
+                      "2016" = round(sum(rentset[62:73])/12),
+                      "2017" = round(sum(rentset[74:85])/12),
+                      "2018" = round(sum(rentset[86:97])/12))
+    rentset <- select(rentset, "RegionName", "2012", "2013", "2014", "2015", "2016", "2017", "2018")
+    return(plot(x= colnames(rentset), y= rentset, type = "b", col = "blue", 
+         xlab = "Year", ylab = "Price in $", main = "Average Monthly Rent Price") +
+      text(x= colnames(rentset), y = rentset[1:7], paste0("$", rentset), pos = 3) +
+        text(x= colnames(rentset[8]), y = rentset[8], paste0("$", rentset$`2018`), pos = 1))
+  })
+  
+  output$salesplot <- renderPlot({
+    salesset <- filter(dataset_sales, RegionName == input$state)
+    salesset <- mutate(salesset, "2011" = round(sum(salesset[2:13])/12), 
+                       "2012" = round(sum(salesset[14:25])/12),
+                       "2013" = round(sum(salesset[26:37])/12),
+                       "2014" = round(sum(salesset[38:49])/12),
+                       "2015" = round(sum(salesset[50:61])/12),
+                       "2016" = round(sum(salesset[62:73])/12),
+                       "2017" = round(sum(salesset[74:85])/12),
+                       "2018" = round(sum(salesset[86:97])/12))
+    salesset <- select(salesset, "RegionName", "2012", "2013", "2014", "2015", "2016", "2017", "2018")
+    return(plot(x= colnames(salesset), y= salesset, type = "b", col = "red",
+         xlab = "Year", ylab = "Price in $", main = "Average Sale Price of Homes")+
+           text(x= colnames(salesset), y = salesset[1:7], paste0("$", salesset), pos = 4) +
+           text(x= colnames(salesset[8]), y = salesset[8], paste0("$", salesset$`2018`), pos = 2))
   })
 })

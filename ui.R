@@ -53,6 +53,7 @@ ui <- shinyUI(navbarPage(
         leafletOutput("affordability_map"), width = 7
       )
     )
+
   ),
   
   # tab panel #3:
@@ -93,10 +94,24 @@ ui <- shinyUI(navbarPage(
   ),
   # tab panel #5:
   tabPanel(
-    "Example #4",
-    titlePanel("Example Title")
+    "Rent vs. Sales",
+    titlePanel("Side by Side Comparison of Rent and Sales"),
+    sidebarLayout(
+      sidebarPanel(
+        textInput("state",
+                  label = "Type In The State of Interest",
+                  value = "Washington",
+                  placeholder = "Enter full State name (eg. Texas)")
+      ),
+      mainPanel(
+        plotOutput("rentplot"),
+        plotOutput("salesplot"),
+        p("*Data for some years was unavailable from the source which resulted in the 0's
+          and low outliers shown in the data."
+        )
+      )
+    )
   )
 )
 )
-
-?mainPanel
+>>>>>>> alex
