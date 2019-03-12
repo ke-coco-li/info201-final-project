@@ -15,8 +15,3 @@ mfr <- read.csv("data/Metro_MedianRentalPrice_Mfr5Plus.csv", stringsAsFactors = 
 sfr <- read.csv("data/Metro_MedianRentalPrice_Sfr.csv", stringsAsFactors = FALSE)
 studio <- read.csv("data/Metro_MedianRentalPrice_Studio.csv", stringsAsFactors = FALSE)
 
-
-
-
-
-
