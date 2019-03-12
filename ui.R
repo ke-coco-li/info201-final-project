@@ -75,9 +75,9 @@ ui <- shinyUI(navbarPage(
       sidebarPanel(
         textInput(
           "chosen_state", 
-          label = "Type A State of Your Interest", 
-          value = "United States", 
-          placeholder = "Enter the abbreviation (eg. NY)"
+          label = "Type a state of your interest
+          (use capitalized abbreviation, eg. WA)", 
+          value = "United States"
         ),
         uiOutput("select_city"),
         checkboxGroupInput("home_types",
