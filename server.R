@@ -29,7 +29,6 @@ server <- shinyServer(function(input, output) {
                 choices = cities$RegionName)
   })
   
-<<<<<<< HEAD
   output$trend_plot <- renderPlot({
     median_based_on_year <- function(data) {
       r_data <- data %>% 
