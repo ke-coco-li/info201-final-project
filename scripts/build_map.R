@@ -10,11 +10,13 @@ build_map1 <- function(filtered_data, afford_perc, city_rank) {
   
   #inputs
   #afford_percent <- afford_perc
-  #cit_rank <- city_rank
+  cit_rank <- as.integer(city_rank) 
+  #test- filtered_data["city_rank"]
   
   #filter data
   specific_data <- filtered_data %>% filter(
-    SizeRank <= city_rank & X2018.12 <= afford_perc
+    SizeRank <= cit_rank &
+      X2018.12 <= afford_perc
   )
   
   #convert rent affordability from numeric to categorical
@@ -53,7 +55,8 @@ build_map1 <- function(filtered_data, afford_perc, city_rank) {
       ),
       stroke = FALSE,
       color = ~ palete_fn(afford_rank),
-      fillOpacity = .6
+      fillOpacity = .7,
+      radius = 6
     ) %>%
     addLegend(
       position = "bottomleft",
@@ -67,3 +70,4 @@ build_map1 <- function(filtered_data, afford_perc, city_rank) {
   
 }
 
+?colorFactor
