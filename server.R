@@ -25,7 +25,7 @@ server <- shinyServer(function(input, output) {
     state <- input$chosen_state
     cities <- one_b %>% filter(grepl(state, RegionName))
     selectInput("chosen_city",
-                label = "Choose A Metro City of Your Interest",
+                label = "Choose a metro city of your interest",
                 choices = cities$RegionName)
   })
   
