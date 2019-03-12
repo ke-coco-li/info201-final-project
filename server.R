@@ -9,7 +9,7 @@ library(reshape2)
 #Read in data
 source("./scripts/build_map.R")
 source("./scripts/reorganize_data.R")
-source(".//scripts/build_comparison.R")
+source("./scripts/build_comparison.R")
 
 afford_data <- read.csv("data/Affordability_Wide_lat_long_rent_only.csv",
                         stringsAsFactors = F)
@@ -104,5 +104,7 @@ server <- shinyServer(function(input, output) {
     p + labs(x = "year", y = "median monthly rent", title = "Monthly Rent vs. Time")
   })
   
-  output$rentvsalesplot <- ggplot()
+  output$rentvsalesplot <- renderPlotly({
+    
+  })
 })
