@@ -117,9 +117,9 @@ server <- shinyServer(function(input, output) {
                       "2018" = round(sum(rentset[86:97])/12))
     rentset <- select(rentset, "RegionName", "2012", "2013", "2014", "2015", "2016", "2017", "2018")
     return(plot(x= colnames(rentset), y= rentset, type = "b", col = "blue", 
-         xlab = "Year", ylab = "Price in $", main = "Average Monthly Rent Price") +
-      text(x= colnames(rentset), y = rentset[1:7], paste0("$", rentset), pos = 3) +
-        text(x= colnames(rentset[8]), y = rentset[8], paste0("$", rentset$`2018`), pos = 1))
+                xlab = "Year", ylab = "Price in $", main = "Average Monthly Rent Price of Homes") +
+             text(x= colnames(rentset), y = rentset[1:7], paste0("$", rentset), pos = 3) +
+             text(x= colnames(rentset[8]), y = rentset[8], paste0("$", rentset$`2018`), pos = 1))
   })
   
   output$salesplot <- renderPlot({
@@ -134,8 +134,8 @@ server <- shinyServer(function(input, output) {
                        "2018" = round(sum(salesset[86:97])/12))
     salesset <- select(salesset, "RegionName", "2012", "2013", "2014", "2015", "2016", "2017", "2018")
     return(plot(x= colnames(salesset), y= salesset, type = "b", col = "red",
-         xlab = "Year", ylab = "Price in $", main = "Average Sale Price of Homes")+
-           text(x= colnames(salesset), y = salesset[1:7], paste0("$", salesset), pos = 4) +
-           text(x= colnames(salesset[8]), y = salesset[8], paste0("$", salesset$`2018`), pos = 2))
+                xlab = "Year", ylab = "Price in $", main = "Average Sale Price of Homes")+
+             text(x= colnames(salesset), y = salesset[1:7], paste0("$", salesset), pos = 4) +
+             text(x= colnames(salesset[8]), y = salesset[8], paste0("$", salesset$`2018`), pos = 2))
   })
 })
