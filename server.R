@@ -20,7 +20,20 @@ server <- shinyServer(function(input, output) {
   output$affordability_map <- renderLeaflet({
     return(build_map1(afford_data, input$percentage, input$city_size))
   })
-  
+  output$city_table <- renderTable( {
+    table_data <- afford_data %>% filter(
+      SizeRank <= as.integer(input$city_size) &
+        X2018.12 <= input$percentage) %>%
+        select("Region Name" = RegionName,
+               "National Population Rank" = SizeRank, Index,
+               "Historic Avg: 1985-1999" = HistoricAverage_1985thru1999,
+            "Share_of_Income_Q4_2018" = X2018.12) %>%
+      top_n(as.integer(input$table_order))
+      
+    
+  }, align = "c", digits = 3
+  )
+
   output$select_city <- renderUI({
     state <- input$chosen_state
     cities <- one_b %>% filter(grepl(state, RegionName))
