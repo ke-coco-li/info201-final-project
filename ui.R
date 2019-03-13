@@ -50,7 +50,9 @@ ui <- shinyUI(navbarPage(
       
       # Main panel for displaying rent affordability map
       mainPanel(
-        leafletOutput("affordability_map"), width = 7
+        leafletOutput("affordability_map"),
+        tableOutput("city_table"),
+        width = 7
       )
     )
 
