@@ -48,7 +48,8 @@ shinyUI(navbarPage(
       
       # Main panel for displaying rent affordability map
       mainPanel(
-        leafletOutput("affordability_map")
+        leafletOutput("affordability_map"),
+        tableOutput("city_table")
       )
   )
 
