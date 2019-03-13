@@ -21,15 +21,6 @@ ui <- shinyUI(navbarPage(
   tabPanel(
     "Rent Affordability Map",
     titlePanel("2018 Rent Affordability Statistics"),
-    
-    # tab panel #1:
-    tabPanel("Example #1",
-             titlePanel("Example Title")),
-    
-    # tab panel #2: rent affordability map
-    tabPanel(
-      "Rent Affordability Map",
-      titlePanel("2018 Rent Affordability Statistics"),
       
       # Creating a sidbar layout
       sidebarLayout(
@@ -45,27 +36,17 @@ ui <- shinyUI(navbarPage(
               "Top 100" = 100,
               "Top 300" = 600
             ),
-            selected = 50
+            selected = 10
           ),
           
           # 'sliderInput' to change the affordability % threshold - NEED TO EDIT
           sliderInput(
             "percentage",
-            label = "Affordability Percentage",
+            label = "Preferred Share of Income Spent on Rent",
             min = .1,
             max = .5,
-            value = .30
+            value = .50
           )
-        ),
-        
-        # 'sliderInput' to change the affordability % threshold - NEED TO EDIT
-        sliderInput(
-          "percentage",
-          label = "Affordability Percentage",
-          min = .1,
-          max = .5,
-          value = .30
-        )
         ),
       
       # Main panel for displaying rent affordability map
@@ -74,7 +55,7 @@ ui <- shinyUI(navbarPage(
         tableOutput("city_table"),
         width = 8
       )
-    )
+      )
 
   ),
   
