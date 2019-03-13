@@ -58,8 +58,43 @@ ui <- shinyUI(navbarPage(
   
   # tab panel #3:
   tabPanel(
-    "Example #2",
-    titlePanel("Example Title")
+    "City Finder Tool",
+    titlePanel("Find Cities That Match Your Budget"),
+    sidebarLayout(
+      sidebarPanel(
+        numericInput("monthly_income",
+                     label = "Monthly Income",
+                     value = 4000),
+        sliderInput("percent_income",
+                    label = "Percentage of Monthly Income for Rent",
+                    min = 0,
+                    max = 100,
+                    value = 25),
+        radioButtons("rental_type",
+                     label = "Rental Type",
+                     choices = list("All Homes",
+                                 "Studio",
+                                 "One Bedroom",
+                                 "Two Bedrooms",
+                                 "Three Bedrooms",
+                                 "Four Bedrooms",
+                                 "Five Bedrooms or More",
+                                 "Condo and Co-op",
+                                 "Duplex And Triplex",
+                                 "Single Family Residence",
+                                 "Multi-family Residence (5+)"),
+                     selected = "All Homes")
+      ),
+      mainPanel(
+        p(textOutput("budget")),
+        h3("Cities Closest to Your Rent Budget"),
+        p("The following fifteen cities are recommended
+          based on your specified budget and rental type.
+          These cities are recommended based on how closely median
+          rental prices in that area match your budget."),
+        tableOutput("city_list")
+      )
+    )
   ),
   
   # tab panel #4:
