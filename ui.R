@@ -112,6 +112,7 @@ ui <- shinyUI(navbarPage(
       mainPanel(
         plotOutput("trend_plot")
       )
+    )
     ),
     # tab panel #5:
     tabPanel(
@@ -151,5 +152,4 @@ ui <- shinyUI(navbarPage(
           )
         )
       )
-    )
 ))
