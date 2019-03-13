@@ -11,42 +11,53 @@ source("scripts/reorganize_data.R")
 # Inputs
 
   # Numeric Input - Monthly Net Income
-  numericInput("monthly_income",
+numericInput("monthly_income",
              label = "Monthly Income",
              value = 4000)
 
   # Slider - % of Income spent on housing
   sliderInput("percent_income",
-            label = "Ideal Percentage of Income Spent on Rent",
-            min = 0,
-            max = 100,
-            value = 25)
+              label = "Percentage of Monthly Income for Rent",
+              min = 0,
+              max = 100,
+              value = 25)
 
   # Select Input - # of rooms (apartment type)
   radioButtons("rental_type",
-             label = "Rental Type",
-             choices = c("All Homes",
-                         "Studio",
-                         "One Bedroom",
-                         "Two Bedrooms",
-                         "Three Bedrooms",
-                         "Four Bedrooms",
-                         "Five Bedrooms or More",
-                         "Condo And Co-op",
-                         "Duplex And Triplex",
-                         "Single Family Residence",
-                         "Multi-family Residence (5+)"),
-             selected = "All Homes")
-
+               label = "Rental Type",
+               choices = list("All Homes",
+                              "Studio",
+                              "One Bedroom",
+                              "Two Bedrooms",
+                              "Three Bedrooms",
+                              "Four Bedrooms",
+                              "Five Bedrooms or More",
+                              "Condo and Co-op",
+                              "Duplex And Triplex",
+                              "Single Family Residence",
+                              "Multi-family Residence (5+)"),
+               selected = "All Homes")
+  
+  # Panel display with description
+  mainPanel(
+    p(textOutput("budget")),
+    h3("Cities Closest to Your Rent Budget"),
+    p("The following fifteen cities are recommended
+          based on your specified budget and rental type.
+          These cities are recommended based on how closely median
+          rental prices in that area match your budget."),
+    tableOutput("city_list")
+    )
+  
 # Outputs
 
   # Text Output - Rent budget and amount left to spend
   output$budget <- renderText({
-    budget_text <- "Your monthly rental budget is $"
+    budget_text <- "Based on your specifications, your recommended rental budget is $"
     budget_amount <- input$monthly_income * input$percent_income / 100
     budget_left <- input$monthly_income - budget_amount
     budget_phrase <- paste0(budget_text, budget_amount,
-                            ". You have $", budget_left,
+                            "/month. You will have $", budget_left,
                             " left to spend after rent.")
   })
   
