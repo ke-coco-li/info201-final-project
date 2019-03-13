@@ -24,12 +24,12 @@ server <- shinyServer(function(input, output) {
     table_data <- afford_data %>% filter(
       SizeRank <= as.integer(input$city_size) &
         X2018.12 <= input$percentage) %>%
+      arrange(X2018.12) %>%
         select("Region Name" = RegionName,
                "National Population Rank" = SizeRank, Index,
-               "Historic Avg: 1985-1999" = HistoricAverage_1985thru1999,
-            "Share_of_Income_Q4_2018" = X2018.12) %>%
-      top_n(as.integer(input$table_order))
-      
+               "Historic Avg: 1985-1999" = HistoricAverage_1985thru1999, #replace historic avg with median income
+            "Share of Income for Rent: Q4_2018" = X2018.12) %>%
+      head(10)
     
   }, align = "c", digits = 3
   )

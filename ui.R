@@ -46,17 +46,6 @@ ui <- shinyUI(navbarPage(
           min = .1,
           max = .5,
           value = .30
-        ),
-        #radiobutton to make the table ascending or descending
-        radioButtons(
-          "table_order",
-          label = "Table View",
-          choices = list(
-            "Ascending Order" = -10, 
-            "Descending Order" = 10
-          ),
-          selected = -10,
-          inline = TRUE
         )
         ),
       
