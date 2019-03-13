@@ -20,12 +20,25 @@ server <- shinyServer(function(input, output) {
   output$affordability_map <- renderLeaflet({
     return(build_map1(afford_data, input$percentage, input$city_size))
   })
-  
+  output$city_table <- renderTable( {
+    table_data <- afford_data %>% filter(
+      SizeRank <= as.integer(input$city_size) &
+        X2018.12 <= input$percentage) %>%
+      arrange(X2018.12) %>%
+        select("Region Name" = RegionName,
+               "National Population Rank" = SizeRank, Index,
+               "Historic Avg: 1985-1999" = HistoricAverage_1985thru1999, #replace historic avg with median income
+            "Share of Income for Rent: Q4_2018" = X2018.12) %>%
+      head(10)
+    
+  }, align = "c", digits = 3
+  )
+
   output$select_city <- renderUI({
     state <- input$chosen_state
     cities <- one_b %>% filter(grepl(state, RegionName))
     selectInput("chosen_city",
-                label = "State of Your Interest",
+                label = "Choose a metro city of your interest",
                 choices = cities$RegionName)
   })
   
@@ -86,7 +99,7 @@ server <- shinyServer(function(input, output) {
   })
   
   output$trend_plot <- renderPlot({
-    median_based_on_year <- function(data) {
+    reformat_colnames <- function(data) {
       r_data <- data %>% 
         filter(input$chosen_city == RegionName) %>%
         select(-SizeRank)
@@ -94,73 +107,59 @@ server <- shinyServer(function(input, output) {
       colnames(r_data) <- gsub("[.]", "-", colnames(r_data))
       r_data
     }
+    add_line <- function(data, colname) {
+      if (nrow(data) != 0) {
+        data2 <- melt(data, id = "RegionName")
+        data2$variable <- as.Date(paste0(data2$variable,"-01"), format = "%Y-%m-%d")
+        geom_line(data = data2, aes(x = variable, y = value, col = colname, group = 1))
+      }
+    }
     p <- ggplot()
     if ("All Homes" %in% input$home_types) {
-      home_data <- median_based_on_year(allHomes)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "All Homes", group = 1))
+      home_data <- reformat_colnames(allHomes)
+      p <- p + add_line(home_data, "All Homes")
     }
     if ("Studio" %in% input$home_types) {
-      home_data <- median_based_on_year(studio)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "Studio", group = 1))
+      home_data <- reformat_colnames(studio)
+      p <- p + add_line(home_data, "Studio")
     }
     if ("One Bedroom" %in% input$home_types) {
-      home_data <- median_based_on_year(one_b)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "One Bedroom", group = 1))
+      home_data <- reformat_colnames(one_b)
+      p <- p + add_line(home_data, "One Bedroom")
     }
     if ("Two Bedrooms" %in% input$home_types) {
-      home_data <- median_based_on_year(two_b)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "Two Bedroom", group = 1))
+      home_data <- reformat_colnames(two_b)
+      p <- p + add_line(home_data, "Two Bedrooms")
     }
     if ("Three Bedrooms" %in% input$home_types) {
-      home_data <- median_based_on_year(three_b)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "Three Bedroom", group = 1))
+      home_data <- reformat_colnames(three_b)
+      p <- p + add_line(home_data, "Three Bedrooms")
     }
     if ("Four Bedrooms" %in% input$home_types) {
-      home_data <- median_based_on_year(four_b)
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "Four Bedroom", group = 1))
+      home_data <- reformat_colnames(four_b)
+      p <- p + add_line(home_data, "Four Bedrooms")
     }
     if ("Five Bedrooms or More" %in% input$home_types) {
-      home_data <- median_based_on_year(five_b)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "Five Bedroom+", group = 1))
+      home_data <- reformat_colnames(five_b)
+      p <- p + add_line(home_data, "Five Bedrooms+")
     }
     if ("Condo And Co-op" %in% input$home_types) {
-      home_data <- median_based_on_year(condo_coop)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "Condo/Co-op", group = 1))
+      home_data <- reformat_colnames(condo_coop)
+      p <- p + add_line(home_data, "Condo/Co-op")
     }
     if ("Duplex And Triplex" %in% input$home_types) {
-      home_data <- median_based_on_year(duplex)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "Duplex/Triplex", group = 1))
+      home_data <- reformat_colnames(duplex)
+      p <- p + add_line(home_data, "Duplex/Triplex")
     }
     if ("Single Family Residence" %in% input$home_types) {
-      home_data <- median_based_on_year(sfr)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "SFR", group = 1))
+      home_data <- reformat_colnames(sfr)
+      p <- p + add_line(home_data, "SFR")
     }
     if ("Multi-family Residence (5+)" %in% input$home_types) {
-      home_data <- median_based_on_year(mfr)
-      home_data2 <- melt(home_data, id = "RegionName")
-      home_data2$variable <- as.Date(paste0(home_data2$variable,"-01"), format = "%Y-%m-%d")
-      p <- p + geom_line(data = home_data2, aes(x = variable, y = value, col = "MFR", group = 1))
+      home_data <- reformat_colnames(mfr)
+      p <- p + add_line(home_data, "MFR")
     }
-    p + labs(x = "year", y = "median monthly rent", title = "Monthly Rent vs. Time")
+    p + labs(x = "year", y = "median monthly rent", title = "Monthly Rent vs. Time", colour = "Home types")
   })
   
   output$rentplot <- renderPlot({
@@ -175,9 +174,9 @@ server <- shinyServer(function(input, output) {
                       "2018" = round(sum(rentset[86:97])/12))
     rentset <- select(rentset, "RegionName", "2012", "2013", "2014", "2015", "2016", "2017", "2018")
     return(plot(x= colnames(rentset), y= rentset, type = "b", col = "blue", 
-         xlab = "Year", ylab = "Price in $", main = "Average Monthly Rent Price") +
-      text(x= colnames(rentset), y = rentset[1:7], paste0("$", rentset), pos = 3) +
-        text(x= colnames(rentset[8]), y = rentset[8], paste0("$", rentset$`2018`), pos = 1))
+                xlab = "Year", ylab = "Price in $", main = "Average Monthly Rent Price of Homes") +
+             text(x= colnames(rentset), y = rentset[1:7], paste0("$", rentset), pos = 3) +
+             text(x= colnames(rentset[8]), y = rentset[8], paste0("$", rentset$`2018`), pos = 1))
   })
   
   output$salesplot <- renderPlot({
@@ -192,8 +191,32 @@ server <- shinyServer(function(input, output) {
                        "2018" = round(sum(salesset[86:97])/12))
     salesset <- select(salesset, "RegionName", "2012", "2013", "2014", "2015", "2016", "2017", "2018")
     return(plot(x= colnames(salesset), y= salesset, type = "b", col = "red",
-         xlab = "Year", ylab = "Price in $", main = "Average Sale Price of Homes")+
-           text(x= colnames(salesset), y = salesset[1:7], paste0("$", salesset), pos = 4) +
-           text(x= colnames(salesset[8]), y = salesset[8], paste0("$", salesset$`2018`), pos = 2))
+                xlab = "Year", ylab = "Price in $", main = "Average Sale Price of Homes")+
+             text(x= colnames(salesset), y = salesset[1:7], paste0("$", salesset), pos = 4) +
+             text(x= colnames(salesset[8]), y = salesset[8], paste0("$", salesset$`2018`), pos = 2))
+  })
+  
+  output$month <- renderText({
+    salesset <- filter(dataset_sales, RegionName == input$state)
+    salesset <- mutate(salesset, "2011" = round(sum(salesset[2:13])/12), 
+                       "2012" = round(sum(salesset[14:25])/12),
+                       "2013" = round(sum(salesset[26:37])/12),
+                       "2014" = round(sum(salesset[38:49])/12),
+                       "2015" = round(sum(salesset[50:61])/12),
+                       "2016" = round(sum(salesset[62:73])/12),
+                       "2017" = round(sum(salesset[74:85])/12),
+                       "2018" = round(sum(salesset[86:97])/12))
+    salesset <- select(salesset, "RegionName", "2012", "2013", "2014", "2015", "2016", "2017", "2018")
+    rentset <- filter(dataset_rent, RegionName == input$state)
+    rentset <- mutate(rentset, "2011" = round(sum(rentset[2:13])/12), 
+                      "2012" = round(sum(rentset[14:25])/12),
+                      "2013" = round(sum(rentset[26:37])/12),
+                      "2014" = round(sum(rentset[38:49])/12),
+                      "2015" = round(sum(rentset[50:61])/12),
+                      "2016" = round(sum(rentset[62:73])/12),
+                      "2017" = round(sum(rentset[74:85])/12),
+                      "2018" = round(sum(rentset[86:97])/12))
+    rentset <- select(rentset, "RegionName", "2012", "2013", "2014", "2015", "2016", "2017", "2018")
+    paste(round(salesset[input$year]/rentset[input$year]))
   })
 })
