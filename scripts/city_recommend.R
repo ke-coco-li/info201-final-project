@@ -50,7 +50,7 @@ source("scripts/reorganize_data.R")
                             " left to spend after rent.")
   })
   
-  # Recommended city Recommendation
+  # Recommended cities
   output$city_list <- renderTable({
     if (input$rental_type == "All Homes") {
       rental_df <- allHomes
