@@ -118,10 +118,15 @@ ui <- shinyUI(
         ),
         mainPanel(
           plotOutput("rentplot", width = "100%", height = "270px"),
+          br(),
           plotOutput("salesplot", width = "100%", height = "270px"),
-          p(
-            "*Data for some years was unavailable from the source which resulted in the 0's
-            and low outliers shown in the data.")
+          em("*Data for some years was unavailable from the source which resulted in the 0's
+            and low outliers shown in the data."),
+          p("These two plots inform viewers of the trends of the price of house sales 
+            and rental price of homes over the years. User can also select a certain year to see
+            how many months it would have taken to pay for the average house with the average rent cost. 
+            It would have taken approximately", textOutput("month"), "months to buy a house with the 
+            amount of rent being paid.")
           )
         )
       )

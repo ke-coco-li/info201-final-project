@@ -138,4 +138,28 @@ server <- shinyServer(function(input, output) {
              text(x= colnames(salesset), y = salesset[1:7], paste0("$", salesset), pos = 4) +
              text(x= colnames(salesset[8]), y = salesset[8], paste0("$", salesset$`2018`), pos = 2))
   })
+  
+  output$month <- renderText({
+    salesset <- filter(dataset_sales, RegionName == input$state)
+    salesset <- mutate(salesset, "2011" = round(sum(salesset[2:13])/12), 
+                       "2012" = round(sum(salesset[14:25])/12),
+                       "2013" = round(sum(salesset[26:37])/12),
+                       "2014" = round(sum(salesset[38:49])/12),
+                       "2015" = round(sum(salesset[50:61])/12),
+                       "2016" = round(sum(salesset[62:73])/12),
+                       "2017" = round(sum(salesset[74:85])/12),
+                       "2018" = round(sum(salesset[86:97])/12))
+    salesset <- select(salesset, "RegionName", "2012", "2013", "2014", "2015", "2016", "2017", "2018")
+    rentset <- filter(dataset_rent, RegionName == input$state)
+    rentset <- mutate(rentset, "2011" = round(sum(rentset[2:13])/12), 
+                      "2012" = round(sum(rentset[14:25])/12),
+                      "2013" = round(sum(rentset[26:37])/12),
+                      "2014" = round(sum(rentset[38:49])/12),
+                      "2015" = round(sum(rentset[50:61])/12),
+                      "2016" = round(sum(rentset[62:73])/12),
+                      "2017" = round(sum(rentset[74:85])/12),
+                      "2018" = round(sum(rentset[86:97])/12))
+    rentset <- select(rentset, "RegionName", "2012", "2013", "2014", "2015", "2016", "2017", "2018")
+    paste(round(salesset[input$year]/rentset[input$year]))
+  })
 })
