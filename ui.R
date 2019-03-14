@@ -62,7 +62,7 @@ ui <- shinyUI(navbarPage(
   # tab panel #3:
   tabPanel(
     "Rent Trend Plot",
-    titlePanel("Median Monthly Rent 2010-2019"),
+    titlePanel("What are the trends of monthly rent in different states by housing types 2010-2019?"),
     p("As shown in the default plot, from 2010 to 2019, the median monthly house rent in Seattle 
       was in an increasing trend, and the increase rate was extremely high in the past 5 years. 
       It was probably and reasonably caused by the promoting number of highly developed technology
