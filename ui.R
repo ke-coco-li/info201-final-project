@@ -81,13 +81,16 @@ ui <- shinyUI(navbarPage(
   # tab panel #3:
   tabPanel(
     "Rent Trend Plot",
-    titlePanel("What are the trends of monthly rent in different states by housing types 2010-2019?"),
+    titlePanel("What are the trends of monthly rent in different states by 
+               housing types 2010-2019?"),
     p(),
-    p("As shown in the default plot, from 2010 to 2019, the median monthly house rent in Seattle 
-      was in an increasing trend, and the increase rate was extremely high in the past 5 years. 
-      It was probably and reasonably caused by the promoting number of highly developed technology
-      companies in these years. For most of the states in the United States, the monthly rent 
-      trendings were also linearly increasing for the last 9 years, and may continue to rise in next few years."),
+    p("As shown in the default plot, from 2010 to 2019, the median monthly 
+      house rent in Seattle was in an increasing trend, and the increase rate 
+      was extremely high in the past 5 years. It was probably and reasonably 
+      caused by the promoting number of highly developed technology companies 
+      in these years. For most of the states in the United States, the monthly 
+      rent trendings were also linearly increasing for the last 9 years, and 
+      may continue to rise in next few years."),
     sidebarLayout(
       sidebarPanel(
         textInput(
@@ -100,9 +103,10 @@ ui <- shinyUI(navbarPage(
         checkboxGroupInput("home_types",
           "Please select home types:",
           c(
-            "All Homes", "Studio", "One Bedroom", "Two Bedrooms", "Three Bedrooms",
-            "Four Bedrooms", "Five Bedrooms or More", "Condo And Co-op",
-            "Duplex And Triplex", "Single Family Residence", "Multi-family Residence (5+)"
+            "All Homes", "Studio", "One Bedroom", "Two Bedrooms", 
+            "Three Bedrooms", "Four Bedrooms", "Five Bedrooms or More", 
+            "Condo And Co-op", "Duplex And Triplex", 
+            "Single Family Residence", "Multi-family Residence (5+)"
           ),
           selected = "All Homes"
         )
@@ -138,17 +142,19 @@ ui <- shinyUI(navbarPage(
             "2018"
           )
         ),
-        p("These two plots inform viewers of the trends of the price of house sales and rental
-          price of homes over the years. Users can also select a certain year to see how many 
-          months it would have taken to pay for the average house with the average rent cost."),
+        p("These two plots inform viewers of the trends of the price of 
+          house sales and rental price of homes over the years. Users 
+          can also select a certain year to see how many months it would 
+          have taken to pay for the average house with the average 
+          rent cost."),
         p(textOutput("month"))
       ),
       mainPanel(
         plotOutput("rentplot", width = "100%", height = "270px"),
         br(),
         plotOutput("salesplot", width = "100%", height = "270px"),
-        em("*Data for some years was unavailable from the source which resulted in the 0's
-           and low outliers shown in the data.")
+        em("*Data for some years was unavailable from the source which 
+           resulted in the 0's and low outliers shown in the data.")
       )
     )
   ),
@@ -202,9 +208,10 @@ ui <- shinyUI(navbarPage(
           cities are a good fit, but also check whether certain cities fall 
           close to your budget."),
         p(),
-        p("The following fifteen cities are recommended based on your specified 
-          budget and rental type. These cities are recommended based on how 
-          closely median rental prices in that area match your budget."),
+        p("The following fifteen cities are recommended based on your 
+          specified budget and rental type. These cities are recommended 
+          based on how closely median rental prices in that area match your
+          budget."),
         tableOutput("city_list")
       )
     )
