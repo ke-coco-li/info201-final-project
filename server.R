@@ -235,6 +235,7 @@ server <- shinyServer(function(input, output) {
                       "2017" = round(sum(rentset[74:85])/12),
                       "2018" = round(sum(rentset[86:97])/12))
     rentset <- select(rentset, "RegionName", "2012", "2013", "2014", "2015", "2016", "2017", "2018")
-    paste(round(salesset[input$year]/rentset[input$year]))
+    full_text <- paste0("It would have taken approximately ", round(salesset[input$year]/rentset[input$year]), 
+                        " months to buy a house with the amount of rent being paid.")
   })
 })

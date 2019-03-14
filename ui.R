@@ -88,8 +88,8 @@ ui <- shinyUI(navbarPage(
     p("As shown in the default plot, from 2010 to 2019, the median monthly house rent in Seattle 
       was in an increasing trend, and the increase rate was extremely high in the past 5 years. 
       It was probably and reasonably caused by the promoting number of highly developed technology
-      companies in these years.For most of the states in the United States, the monthly rent 
-      trendings were also linearly increasing for the last 9 years, and may be continue rising in next few years."),
+      companies in these years. For most of the states in the United States, the monthly rent 
+      trendings were also linearly increasing for the last 9 years, and may continue to rise in next few years."),
     sidebarLayout(
       sidebarPanel(
         textInput(
@@ -134,21 +134,18 @@ ui <- shinyUI(navbarPage(
                          "2016",
                          "2017",
                          "2018")
-        )
+        ),
+        p("These two plots inform viewers of the trends of the price of house sales and rental
+          price of homes over the years. Users can also select a certain year to see how many 
+          months it would have taken to pay for the average house with the average rent cost."),
+        p(textOutput("month"))
       ),
       mainPanel(
         plotOutput("rentplot", width = "100%", height = "270px"),
         br(),
         plotOutput("salesplot", width = "100%", height = "270px"),
         em("*Data for some years was unavailable from the source which resulted in the 0's
-           and low outliers shown in the data."),
-        br(),
-        br(),
-        p("These two plots inform viewers of the trends of the price of house sales 
-          and rental price of homes over the years. Users can also select a certain year to see
-          how many months it would have taken to pay for the average house with the average rent cost. 
-          It would have taken approximately", textOutput("month"), "months to buy a house with the 
-          amount of rent being paid.")
+           and low outliers shown in the data.")
         )
         )
         ),
