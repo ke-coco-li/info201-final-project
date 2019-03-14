@@ -83,7 +83,7 @@ server <- shinyServer(function(input, output) {
     budget_left <- input$monthly_income - budget_amount
     budget_phrase <- paste0(
       budget_text, budget_amount,
-      "/month. You will have $", budget_left,
+      "per month. You will have $", budget_left,
       " left to spend after rent."
     )
   })
