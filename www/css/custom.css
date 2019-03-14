@@ -4,6 +4,11 @@
   margin-top: 20px;
 }
 
+#beg, #mid {
+  width: 100%;
+  display: block;
+}
+
 .card {
   position: relative;
   display: -ms-flexbox;
@@ -39,4 +44,22 @@
   width: 48%;
   float: left;
   margin-right: 20px;
+}
+
+#team {
+  width: 100%;
+  display: block;
+}
+
+.person {
+  width: 20%;
+  float: left;
+}
+
+.avatar {
+  width: 70px;
+}
+
+.avatar img {
+  width: 100%;
 }
