@@ -5,8 +5,8 @@ account: kel28
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 788028
-bundleId: 1940676
+bundleId: 1940840
 url: https://kel28.shinyapps.io/info201-final-project/
-when: 1552598108.83379
+when: 1552601869.18072
 asMultiple: FALSE
 asStatic: FALSE
