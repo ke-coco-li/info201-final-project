@@ -177,17 +177,26 @@ ui <- shinyUI(navbarPage(
                                     "Duplex And Triplex",
                                     "Single Family Residence",
                                     "Multi-family Residence (5+)"),
-                     selected = "All Homes")
+                     selected = "All Homes"),
+        h4(textOutput("budget"))
       ),
       mainPanel(
-        p(),
-        h4(textOutput("budget")),
-        p(),
         h3("Cities Closest to Your Rent Budget"),
-        p("The following fifteen cities are recommended
-          based on your specified budget and rental type.
-          These cities are recommended based on how closely median
-          rental prices in that area match your budget."),
+        p(),
+        p("This tool is designed to be the first step in assessing
+          which housing markets might be suitable for specific income levels.
+          It is NOT designed to provide a comprehensive recommendation on 
+          which city is best suited for an individual, but rather aims to 
+          narrow the search to a few cities that are likely to be a suitable 
+          fit based on income. By adjusting the percentage of your income you 
+          hope to spend on rent and the type of rental you plan on occupying, 
+          you can use this tool to not only obtain a general idea of which 
+          cities are a good fit, but also check whether certain cities fall 
+          close to your budget."),
+        p(),
+        p("The following fifteen cities are recommended based on your specified 
+          budget and rental type. These cities are recommended based on how 
+          closely median rental prices in that area match your budget."),
         tableOutput("city_list")
         )
       )
