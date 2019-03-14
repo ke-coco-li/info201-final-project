@@ -1,6 +1,15 @@
-<p>Our report uses data sourced from <a href="https://www.zillow.com/research/data/">Zillow Research</a> to analyze rental information, geared to an audience of American <em>current</em> and <em>prospective</em> renters.</p>
+<p>Our report uses data sourced from <a href="https://www.zillow.com/research/data/">Zillow Research</a> to analyze rental information, geared to an audience of American <em>current</em> and <em>prospective</em> renters. There are a total of 13 datasets that can be joined together by region id and regionname. Zillow provided these datasets and updates them quarterly.</p>
 
-<p class="extra" class="card">We answer multiple interesting questions</p>
+<p>We will read our data using static CSV files obtained from Zillow Research. Types of data-wrangling we do is performing join functions in R Studio to combine our datasets using unique identifiers to make it easier to analyze the data. We also clean our dataset such as identifying Null values. We perform aggregate functions using base R and dpylr to help identify time-based trends and rolling averages from our data. Additionally, we reshape our datasets in order to answer specific questions such as comparing the ratings to months and prices over the years.</p>
+
+<p>Resources and libraries we use include:
+  <li><a href="https://plot.ly/ggplot2/">Plotly</a> for scatterplots, boxplots, histograms, area charts, etc...</li>
+  <li><a href="https://rstudio.github.io/leaflet/">Leaflet for R</a> for interactive maps</li>
+  <li><a href="http://shiny.rstudio.com/tutorial/">Shiny</a> for creating interactive web applications</li>
+  <li><a href="https://shiny.rstudio.com/articles/css.html">CSS</a> for styling our Shiny application and giving it a more polished look</li>
+</p>
+
+<p class="extra" class="card">We answer multiple questions concerning rentals</p>
 
 <div class="col">
   <div class="card">
