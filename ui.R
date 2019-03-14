@@ -46,9 +46,31 @@ ui <- shinyUI(navbarPage(
             min = .1,
             max = .5,
             value = .50
-          )
+          ),
+          p("For the largest 300 cities, the following map and table will
+            output how much rent a person would be expected to pay to live
+            in a city in relation to the city's median income. You can
+            hover over the markers on the map to look up cities of interest
+            and their rent affordability rates. The higher the rent
+            affordability rate, the more a person would be expected to pay
+            for rent in relation to the city's median income.
+            The table below will show the ten most affordable cities within
+            the parameters you selected."),
+          p("Some insights from the data include that on average you'd be
+            expected to spend at least 25% of your income on rent in the
+            ten largest cities in America. Cities such as St. Louis and
+            Pittsburgh are outlier
+            cities where even though they're one of the top 25 largest cities,
+            they're still one of the most affordable even when comparing to the
+            largest 100 cities. Additional insights include that in general
+            midwest cities are more affordable than cities on the coasts,
+            and that while in general, required share of income spent on rent
+            has been increasing for most cities, it has actually decreased for
+            some of the cheapest cities in the top 300 which coud lead to some
+            interesting questions relating to the economic conditions of those
+            cities.")
         ),
-      
+        
       # Main panel for displaying rent affordability map
       mainPanel(
         leafletOutput("affordability_map"),

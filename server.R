@@ -14,6 +14,9 @@ source("./scripts/build_comparison.R")
 
 afford_data <- read.csv("data/Affordability_Wide_lat_long_rent_only.csv",
                         stringsAsFactors = F)
+#income_data <- read.csv("data/Affordability_Wide_lat_long_rent_only.csv",
+ #                       stringsAsFactors = F)
+#join data
 
 # Starting shinyServer
 server <- shinyServer(function(input, output) {
