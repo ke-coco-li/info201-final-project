@@ -1,4 +1,4 @@
-#Final Project: ui.R
+# Final Project: ui.R
 library(dplyr)
 library(shiny)
 library(leaflet)
@@ -8,7 +8,7 @@ library(shinythemes)
 ui <- shinyUI(navbarPage(
   "Rent Statistics in the United States",
   fluid = TRUE, theme = shinytheme("superhero"),
-  
+
   # tab panel #1:
   tabPanel(
     "Summary",
@@ -16,38 +16,38 @@ ui <- shinyUI(navbarPage(
     HTML(readLines("www/summary.html")),
     includeCSS("www/css/custom.css")
   ),
-  
+
   # tab panel #2: rent affordability map
   tabPanel(
     "Rent Affordability Map",
     titlePanel("2018 Rent Affordability Statistics"),
-      
-      # Creating a sidbar layout
-      sidebarLayout(
-        # side panel for controls
-        sidebarPanel(
-          # 'radioButtons' to change the # of cities shown
-          radioButtons(
-            "city_size",
-            label = "City Size Rank",
-            choices = list(
-              "Top 10" = 10,
-              "Top 50" = 50,
-              "Top 100" = 100,
-              "Top 300" = 600
-            ),
-            selected = 10
+
+    # Creating a sidbar layout
+    sidebarLayout(
+      # side panel for controls
+      sidebarPanel(
+        # 'radioButtons' to change the # of cities shown
+        radioButtons(
+          "city_size",
+          label = "City Size Rank",
+          choices = list(
+            "Top 10" = 10,
+            "Top 50" = 50,
+            "Top 100" = 100,
+            "Top 300" = 600
           ),
-          
-          # 'sliderInput' to change the affordability % threshold - NEED TO EDIT
-          sliderInput(
-            "percentage",
-            label = "Preferred Share of Income Spent on Rent",
-            min = .1,
-            max = .5,
-            value = .50
-          ),
-          p("For the largest 300 cities, the following map and table will
+          selected = 10
+        ),
+
+        # 'sliderInput' to change the affordability % threshold - NEED TO EDIT
+        sliderInput(
+          "percentage",
+          label = "Preferred Share of Income Spent on Rent",
+          min = .1,
+          max = .5,
+          value = .50
+        ),
+        p("For the largest 300 cities, the following map and table will
             output how much rent a person would be expected to pay to live
             in a city in relation to the city's median income. You can
             hover over the markers on the map to look up cities of interest
@@ -56,7 +56,7 @@ ui <- shinyUI(navbarPage(
             for rent in relation to the city's median income.
             The table below will show the ten most affordable cities within
             the parameters you selected."),
-          p("Some insights from the data include that on average you'd be
+        p("Some insights from the data include that on average you'd be
             expected to spend at least 25% of your income on rent in the
             ten largest cities in America. Cities such as St. Louis and
             Pittsburgh are outlier
@@ -69,18 +69,17 @@ ui <- shinyUI(navbarPage(
             some of the cheapest cities in the top 300 which coud lead to some
             interesting questions relating to the economic conditions of those
             cities.")
-        ),
-        
+      ),
+
       # Main panel for displaying rent affordability map
       mainPanel(
         leafletOutput("affordability_map"),
         tableOutput("city_table"),
         width = 8
       )
-      )
-
+    )
   ),
-  
+
   # tab panel #3:
   tabPanel(
     "Rent Trend Plot",
@@ -94,25 +93,28 @@ ui <- shinyUI(navbarPage(
     sidebarLayout(
       sidebarPanel(
         textInput(
-          "chosen_state", 
+          "chosen_state",
           label = "Type a state of your interest
-          (use capitalized abbreviation, eg. WA)", 
+          (use capitalized abbreviation, eg. WA)",
           value = "WA"
         ),
         uiOutput("select_city"),
         checkboxGroupInput("home_types",
-                           "Please select home types:",
-                           c("All Homes","Studio","One Bedroom","Two Bedrooms","Three Bedrooms",
-                             "Four Bedrooms","Five Bedrooms or More","Condo And Co-op",
-                             "Duplex And Triplex","Single Family Residence","Multi-family Residence (5+)"),
-                           selected = "All Homes")
+          "Please select home types:",
+          c(
+            "All Homes", "Studio", "One Bedroom", "Two Bedrooms", "Three Bedrooms",
+            "Four Bedrooms", "Five Bedrooms or More", "Condo And Co-op",
+            "Duplex And Triplex", "Single Family Residence", "Multi-family Residence (5+)"
+          ),
+          selected = "All Homes"
+        )
       ),
       mainPanel(
         plotOutput("trend_plot")
       )
-      )
-    ),
-  
+    )
+  ),
+
   # tab panel #4:
   tabPanel(
     "Rent vs. Sales",
@@ -128,13 +130,15 @@ ui <- shinyUI(navbarPage(
         selectInput(
           "year",
           label = "Select a Year to Calculate",
-          choices = list("2012",
-                         "2013",
-                         "2014",
-                         "2015",
-                         "2016",
-                         "2017",
-                         "2018")
+          choices = list(
+            "2012",
+            "2013",
+            "2014",
+            "2015",
+            "2016",
+            "2017",
+            "2018"
+          )
         ),
         p("These two plots inform viewers of the trends of the price of house sales and rental
           price of homes over the years. Users can also select a certain year to see how many 
@@ -147,38 +151,43 @@ ui <- shinyUI(navbarPage(
         plotOutput("salesplot", width = "100%", height = "270px"),
         em("*Data for some years was unavailable from the source which resulted in the 0's
            and low outliers shown in the data.")
-        )
-        )
-        ),
-  
-    # tab panel #5:
+      )
+    )
+  ),
+
+  # tab panel #5:
   tabPanel(
     "City Finder Tool",
     titlePanel("Find Cities That Match Your Budget"),
     sidebarLayout(
       sidebarPanel(
         numericInput("monthly_income",
-                     label = "Monthly Income",
-                     value = 4000),
+          label = "Monthly Income",
+          value = 4000
+        ),
         sliderInput("percent_income",
-                    label = "Percentage of Monthly Income for Rent",
-                    min = 0,
-                    max = 100,
-                    value = 25),
+          label = "Percentage of Monthly Income for Rent",
+          min = 0,
+          max = 100,
+          value = 25
+        ),
         radioButtons("rental_type",
-                     label = "Rental Type",
-                     choices = list("All Homes",
-                                    "Studio",
-                                    "One Bedroom",
-                                    "Two Bedrooms",
-                                    "Three Bedrooms",
-                                    "Four Bedrooms",
-                                    "Five Bedrooms or More",
-                                    "Condo and Co-op",
-                                    "Duplex And Triplex",
-                                    "Single Family Residence",
-                                    "Multi-family Residence (5+)"),
-                     selected = "All Homes"),
+          label = "Rental Type",
+          choices = list(
+            "All Homes",
+            "Studio",
+            "One Bedroom",
+            "Two Bedrooms",
+            "Three Bedrooms",
+            "Four Bedrooms",
+            "Five Bedrooms or More",
+            "Condo and Co-op",
+            "Duplex And Triplex",
+            "Single Family Residence",
+            "Multi-family Residence (5+)"
+          ),
+          selected = "All Homes"
+        ),
         h4(textOutput("budget"))
       ),
       mainPanel(
@@ -199,7 +208,7 @@ ui <- shinyUI(navbarPage(
           budget and rental type. These cities are recommended based on how 
           closely median rental prices in that area match your budget."),
         tableOutput("city_list")
-        )
       )
-      )
+    )
+  )
 ))

@@ -1,4 +1,4 @@
-#Final Project: server script
+# Final Project: server script
 
 # Load libraries
 library(shiny)
@@ -7,7 +7,7 @@ library(ggplot2)
 library(reshape2)
 library(tidyverse)
 
-#Read in data
+# Read in data
 source("./scripts/build_map.R")
 source("./scripts/reorganize_data.R")
 source("./scripts/build_comparison.R")
@@ -27,7 +27,7 @@ all_states <- c("Alabama", "Alaska", "Arizona", "Arkansas", "California",
                 "Tennessee", "Texas", "Utah", "Vermont", "Virginia", 
                 "Washington", "West Virginia", "Wisconsin","Wyoming")
 #income_data <- read.csv("data/Affordability_Wide_lat_long_rent_only.csv",
- #                       stringsAsFactors = F)
+#                       stringsAsFactors = F)
 #join data
 
 # Starting shinyServer
@@ -35,20 +35,22 @@ server <- shinyServer(function(input, output) {
   output$affordability_map <- renderLeaflet({
     return(build_map1(afford_data, input$percentage, input$city_size))
   })
-  output$city_table <- renderTable( {
-    table_data <- afford_data %>% filter(
-      SizeRank <= as.integer(input$city_size) &
-        X2018.12 <= input$percentage) %>%
+  output$city_table <- renderTable({
+    table_data <- afford_data %>%
+      filter(
+        SizeRank <= as.integer(input$city_size) &
+          X2018.12 <= input$percentage
+      ) %>%
       arrange(X2018.12) %>%
-        select("Region Name" = RegionName,
-               "National Population Rank" = SizeRank, Index,
-               "Historic Avg: 1985-1999" = HistoricAverage_1985thru1999, #replace historic avg with median income
-            "Share of Income for Rent: Q4_2018" = X2018.12) %>%
+      select(
+        "Region Name" = RegionName,
+        "National Population Rank" = SizeRank, Index,
+        "Historic Avg: 1985-1999" = HistoricAverage_1985thru1999,
+        "Share of Income for Rent: Q4_2018" = X2018.12
+      ) %>%
       head(10)
-    
-  }, align = "c", digits = 3
-  )
-  
+  }, align = "c", digits = 3)
+
   chosen_state <- reactive({
     validate(
       need(input$chosen_state %in% c("AL", "AK", "AZ", "AR", "CA", "CO",
@@ -64,24 +66,27 @@ server <- shinyServer(function(input, output) {
     )
     input$chosen_state
   })
-  
+
   output$select_city <- renderUI({
     state <- chosen_state()
     cities <- one_b %>% filter(grepl(state, RegionName))
     selectInput("chosen_city",
-                label = "Choose a metro city of your interest",
-                choices = cities$RegionName)
+      label = "Choose a metro city of your interest",
+      choices = cities$RegionName
+    )
   })
-  
+
   output$budget <- renderText({
     budget_text <- "Based on your specifications, your recommended rental budget is $"
     budget_amount <- input$monthly_income * input$percent_income / 100
     budget_left <- input$monthly_income - budget_amount
-    budget_phrase <- paste0(budget_text, budget_amount,
-                            "/month. You will have $", budget_left,
-                            " left to spend after rent.")
+    budget_phrase <- paste0(
+      budget_text, budget_amount,
+      "/month. You will have $", budget_left,
+      " left to spend after rent."
+    )
   })
-  
+
   output$city_list <- renderTable({
     if (input$rental_type == "All Homes") {
       rental_df <- allHomes
@@ -116,26 +121,28 @@ server <- shinyServer(function(input, output) {
     if (input$rental_type == "Multi-family Residence (5+)") {
       rental_df <- mfr
     }
-    
+
     budget_amount <- input$monthly_income * input$percent_income / 100
-    
+
     rental_df <- rental_df %>%
       select(RegionName, X2019.01) %>%
       filter(RegionName != "United States") %>%
       mutate(rent_diff = abs(X2019.01 - budget_amount)) %>%
       arrange(rent_diff) %>%
-      select("City" = RegionName,
-             "Median Rental Price" = X2019.01)
+      select(
+        "City" = RegionName,
+        "Median Rental Price" = X2019.01
+      )
     top_15 <- head(rental_df, 15)
   })
-  
+
   city <- reactive({
     req(input$chosen_city, "city")
   })
-  
+
   output$trend_plot <- renderPlot({
     reformat_colnames <- function(data) {
-      r_data <- data %>% 
+      r_data <- data %>%
         filter(RegionName == city()) %>%
         select(-SizeRank)
       colnames(r_data) <- gsub("X", "", colnames(r_data))
@@ -200,7 +207,6 @@ server <- shinyServer(function(input, output) {
              title = "Monthly Rent vs. Time", colour = "Home types")
   })
   
-  
   output$rentplot <- renderPlot({
     if (input$chosen_state_full %in% all_states) {
       rentset <- filter(dataset_rent, RegionName == input$chosen_state_full)
@@ -217,11 +223,9 @@ server <- shinyServer(function(input, output) {
                   xlab = "Year", ylab = "Price in $", main = "Average Monthly Rent Price of Homes") +
                text(x= colnames(rentset), y = rentset[1:7], paste0("$", rentset), pos = 3) +
                text(x= colnames(rentset[8]), y = rentset[8], paste0("$", rentset$`2018`), pos = 1))
-    } else {
-      return (NULL)
-    }
+    } 
   })
-  
+
   output$salesplot <- renderPlot({
     if (input$chosen_state_full %in% all_states) {
       salesset <- filter(dataset_sales, RegionName == input$chosen_state_full)
@@ -240,7 +244,7 @@ server <- shinyServer(function(input, output) {
                text(x= colnames(salesset[8]), y = salesset[8], paste0("$", salesset$`2018`), pos = 2))
     }
   })
-  
+
   output$month <- renderText({
     if (input$chosen_state_full %in% all_states) {
       salesset <- filter(dataset_sales, RegionName == input$chosen_state_full)
@@ -267,5 +271,4 @@ server <- shinyServer(function(input, output) {
                           " months to buy a house with the amount of rent being paid.")
     }
   })
-  
 })
