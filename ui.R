@@ -120,7 +120,7 @@ ui <- shinyUI(navbarPage(
     sidebarLayout(
       sidebarPanel(
         textInput(
-          "state",
+          "chosen_state_full",
           label = "Type In The State of Interest",
           value = "Washington",
           placeholder = "Enter full State name (eg. Texas)"
