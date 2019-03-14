@@ -77,7 +77,8 @@ server <- shinyServer(function(input, output) {
   })
 
   output$budget <- renderText({
-    budget_text <- "Based on your specifications, your recommended rental budget is $"
+    budget_text <- "Based on your specifications, 
+    your recommended rental budget is $"
     budget_amount <- input$monthly_income * input$percent_income / 100
     budget_left <- input$monthly_income - budget_amount
     budget_phrase <- paste0(
@@ -218,11 +219,15 @@ server <- shinyServer(function(input, output) {
                         "2016" = round(sum(rentset[62:73])/12),
                         "2017" = round(sum(rentset[74:85])/12),
                         "2018" = round(sum(rentset[86:97])/12))
-      rentset <- select(rentset, "RegionName", "2012", "2013", "2014", "2015", "2016", "2017", "2018")
+      rentset <- select(rentset, "RegionName", "2012", "2013", "2014",
+                        "2015", "2016", "2017", "2018")
       return(plot(x= colnames(rentset), y= rentset, type = "b", col = "blue", 
-                  xlab = "Year", ylab = "Price in $", main = "Average Monthly Rent Price of Homes") +
-               text(x= colnames(rentset), y = rentset[1:7], paste0("$", rentset), pos = 3) +
-               text(x= colnames(rentset[8]), y = rentset[8], paste0("$", rentset$`2018`), pos = 1))
+                  xlab = "Year", ylab = "Price in $",
+                  main = "Average Monthly Rent Price of Homes") +
+               text(x= colnames(rentset), y = rentset[1:7],
+                    paste0("$", rentset), pos = 3) +
+               text(x= colnames(rentset[8]), y = rentset[8],
+                    paste0("$", rentset$`2018`), pos = 1))
     } 
   })
 
@@ -237,11 +242,15 @@ server <- shinyServer(function(input, output) {
                          "2016" = round(sum(salesset[62:73])/12),
                          "2017" = round(sum(salesset[74:85])/12),
                          "2018" = round(sum(salesset[86:97])/12))
-      salesset <- select(salesset, "RegionName", "2012", "2013", "2014", "2015", "2016", "2017", "2018")
+      salesset <- select(salesset, "RegionName", "2012", "2013", "2014",
+                         "2015", "2016", "2017", "2018")
       return(plot(x= colnames(salesset), y= salesset, type = "b", col = "red",
-                  xlab = "Year", ylab = "Price in $", main = "Average Sale Price of Homes")+
-               text(x= colnames(salesset), y = salesset[1:7], paste0("$", salesset), pos = 4) +
-               text(x= colnames(salesset[8]), y = salesset[8], paste0("$", salesset$`2018`), pos = 2))
+                  xlab = "Year", ylab = "Price in $",
+                  main = "Average Sale Price of Homes")+
+               text(x= colnames(salesset), y = salesset[1:7],
+                    paste0("$", salesset), pos = 4) +
+               text(x= colnames(salesset[8]), y = salesset[8],
+                    paste0("$", salesset$`2018`), pos = 2))
     }
   })
 
@@ -256,7 +265,8 @@ server <- shinyServer(function(input, output) {
                          "2016" = round(sum(salesset[62:73])/12),
                          "2017" = round(sum(salesset[74:85])/12),
                          "2018" = round(sum(salesset[86:97])/12))
-      salesset <- select(salesset, "RegionName", "2012", "2013", "2014", "2015", "2016", "2017", "2018")
+      salesset <- select(salesset, "RegionName", "2012", "2013", "2014",
+                         "2015", "2016", "2017", "2018")
       rentset <- filter(dataset_rent, RegionName == input$chosen_state_full)
       rentset <- mutate(rentset, "2011" = round(sum(rentset[2:13])/12), 
                         "2012" = round(sum(rentset[14:25])/12),
@@ -266,9 +276,12 @@ server <- shinyServer(function(input, output) {
                         "2016" = round(sum(rentset[62:73])/12),
                         "2017" = round(sum(rentset[74:85])/12),
                         "2018" = round(sum(rentset[86:97])/12))
-      rentset <- select(rentset, "RegionName", "2012", "2013", "2014", "2015", "2016", "2017", "2018")
-      full_text <- paste0("It would have taken approximately ", round(salesset[input$year]/rentset[input$year]), 
-                          " months to buy a house with the amount of rent being paid.")
+      rentset <- select(rentset, "RegionName", "2012", "2013", "2014",
+                        "2015", "2016", "2017", "2018")
+      full_text <- paste0("It would have taken approximately ", 
+                          ound(salesset[input$year]/rentset[input$year]), 
+                          " months to buy a house with the amount of rent 
+                          being paid.")
     }
   })
 })
