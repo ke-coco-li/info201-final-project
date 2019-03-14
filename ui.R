@@ -184,7 +184,7 @@ ui <- shinyUI(navbarPage(
       ),
       mainPanel(
         p(),
-        h2(textOutput("budget")),
+        h4(textOutput("budget")),
         p(),
         h3("Cities Closest to Your Rent Budget"),
         p("The following fifteen cities are recommended
