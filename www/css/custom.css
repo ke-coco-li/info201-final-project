@@ -4,9 +4,15 @@
   margin-top: 20px;
 }
 
-#beg, #mid {
+#section {
+  width: 100%;
+  height: 100%;
+}
+
+#beg, #mid, #team {
   width: 100%;
   display: block;
+  float: left;
 }
 
 .card {
@@ -25,6 +31,7 @@
   padding: 10px 20px;
   color: #2b3e50;
   line-height: 1.8;
+  min-height: 280px;
 }
 
 .card > h5 {
@@ -46,14 +53,11 @@
   margin-right: 20px;
 }
 
-#team {
-  width: 100%;
-  display: block;
-}
-
 .person {
-  width: 20%;
+  width: 220px;
   float: left;
+  margin-right: 25px;
+  margin-left: 25px;
 }
 
 .avatar {
