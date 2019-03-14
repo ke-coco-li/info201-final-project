@@ -46,9 +46,31 @@ ui <- shinyUI(navbarPage(
             min = .1,
             max = .5,
             value = .50
-          )
+          ),
+          p("For the largest 300 cities, the following map and table will
+            output how much rent a person would be expected to pay to live
+            in a city in relation to the city's median income. You can
+            hover over the markers on the map to look up cities of interest
+            and their rent affordability rates. The higher the rent
+            affordability rate, the more a person would be expected to pay
+            for rent in relation to the city's median income.
+            The table below will show the ten most affordable cities within
+            the parameters you selected."),
+          p("Some insights from the data include that on average you'd be
+            expected to spend at least 25% of your income on rent in the
+            ten largest cities in America. Cities such as St. Louis and
+            Pittsburgh are outlier
+            cities where even though they're one of the top 25 largest cities,
+            they're still one of the most affordable even when comparing to the
+            largest 100 cities. Additional insights include that in general
+            midwest cities are more affordable than cities on the coasts,
+            and that while in general, required share of income spent on rent
+            has been increasing for most cities, it has actually decreased for
+            some of the cheapest cities in the top 300 which coud lead to some
+            interesting questions relating to the economic conditions of those
+            cities.")
         ),
-      
+        
       # Main panel for displaying rent affordability map
       mainPanel(
         leafletOutput("affordability_map"),
@@ -63,11 +85,12 @@ ui <- shinyUI(navbarPage(
   tabPanel(
     "Rent Trend Plot",
     titlePanel("What are the trends of monthly rent in different states by housing types 2010-2019?"),
+    p(),
     p("As shown in the default plot, from 2010 to 2019, the median monthly house rent in Seattle 
       was in an increasing trend, and the increase rate was extremely high in the past 5 years. 
       It was probably and reasonably caused by the promoting number of highly developed technology
-      companies in these years.For most of the states in the United States, the monthly rent 
-      trendings were also linearly increasing for the last 9 years, and may be continue rising in next few years."),
+      companies in these years. For most of the states in the United States, the monthly rent 
+      trendings were also linearly increasing for the last 9 years, and may continue to rise in next few years."),
     sidebarLayout(
       sidebarPanel(
         textInput(
@@ -112,21 +135,18 @@ ui <- shinyUI(navbarPage(
                          "2016",
                          "2017",
                          "2018")
-        )
+        ),
+        p("These two plots inform viewers of the trends of the price of house sales and rental
+          price of homes over the years. Users can also select a certain year to see how many 
+          months it would have taken to pay for the average house with the average rent cost."),
+        p(textOutput("month"))
       ),
       mainPanel(
         plotOutput("rentplot", width = "100%", height = "270px"),
         br(),
         plotOutput("salesplot", width = "100%", height = "270px"),
         em("*Data for some years was unavailable from the source which resulted in the 0's
-           and low outliers shown in the data."),
-        br(),
-        br(),
-        p("These two plots inform viewers of the trends of the price of house sales 
-          and rental price of homes over the years. Users can also select a certain year to see
-          how many months it would have taken to pay for the average house with the average rent cost. 
-          It would have taken approximately", textOutput("month"), "months to buy a house with the 
-          amount of rent being paid.")
+           and low outliers shown in the data.")
         )
         )
         ),
@@ -158,15 +178,26 @@ ui <- shinyUI(navbarPage(
                                     "Duplex And Triplex",
                                     "Single Family Residence",
                                     "Multi-family Residence (5+)"),
-                     selected = "All Homes")
+                     selected = "All Homes"),
+        h4(textOutput("budget"))
       ),
       mainPanel(
-        p(textOutput("budget")),
         h3("Cities Closest to Your Rent Budget"),
-        p("The following fifteen cities are recommended
-          based on your specified budget and rental type.
-          These cities are recommended based on how closely median
-          rental prices in that area match your budget."),
+        p(),
+        p("This tool is designed to be the first step in assessing
+          which housing markets might be suitable for specific income levels.
+          It is NOT designed to provide a comprehensive recommendation on 
+          which city is best suited for an individual, but rather aims to 
+          narrow the search to a few cities that are likely to be a suitable 
+          fit based on income. By adjusting the percentage of your income you 
+          hope to spend on rent and the type of rental you plan on occupying, 
+          you can use this tool to not only obtain a general idea of which 
+          cities are a good fit, but also check whether certain cities fall 
+          close to your budget."),
+        p(),
+        p("The following fifteen cities are recommended based on your specified 
+          budget and rental type. These cities are recommended based on how 
+          closely median rental prices in that area match your budget."),
         tableOutput("city_list")
         )
       )
