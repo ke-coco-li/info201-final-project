@@ -1,50 +1,102 @@
-<p>Our report uses data sourced from <a href="https://www.zillow.com/research/data/">Zillow Research</a> to analyze rental information, geared to an audience of American <em>current</em> and <em>prospective</em> renters. There are a total of 13 datasets that can be joined together by region id and regionname. Zillow provided these datasets and updates them quarterly.</p>
+<div id="section">
+  <div id="beg">
+    <p>Our report uses data sourced from <a href="https://www.zillow.com/research/data/">Zillow Research</a> to analyze rental information, geared to an audience of American <em>current</em> and <em>prospective</em> renters. There are a total of 13 datasets that can be joined together by region id and regionname. Zillow provided these datasets and updates them quarterly.</p>
 
-<p>We will read our data using static CSV files obtained from Zillow Research. Types of data-wrangling we do is performing join functions in R Studio to combine our datasets using unique identifiers to make it easier to analyze the data. We also clean our dataset such as identifying Null values. We perform aggregate functions using base R and dpylr to help identify time-based trends and rolling averages from our data. Additionally, we reshape our datasets in order to answer specific questions such as comparing the ratings to months and prices over the years.</p>
+    <p>We will read our data using static CSV files obtained from Zillow Research. Types of data-wrangling we do is performing join functions in R Studio to combine our datasets using unique identifiers to make it easier to analyze the data. We also clean our dataset such as identifying Null values. We perform aggregate functions using base R and dpylr to help identify time-based trends and rolling averages from our data. Additionally, we reshape our datasets in order to answer specific questions such as comparing the ratings to months and prices over the years.</p>
 
-<p>Resources and libraries we use include:
-  <li><a href="https://plot.ly/ggplot2/">Plotly</a> for scatterplots, boxplots, histograms, area charts, etc...</li>
-  <li><a href="https://rstudio.github.io/leaflet/">Leaflet for R</a> for interactive maps</li>
-  <li><a href="http://shiny.rstudio.com/tutorial/">Shiny</a> for creating interactive web applications</li>
-  <li><a href="https://shiny.rstudio.com/articles/css.html">CSS</a> for styling our Shiny application and giving it a more polished look</li>
-</p>
-
-<p class="extra" class="card">We answer multiple questions concerning rentals</p>
-
-<div class="col">
-  <div class="card">
-    <h5>Based on the size of the city you'd like to live in, what areas are most affordable?</h5>
-    <p class="subtitle">Rent affordability map</p>
-    <p>
-      If you only prefer living in the largest cities, then you can filter out smaller cities. Otherwise, you can show a larger range of sizes of cities if that is not an important for you. After choosing a compatible city size, you can select on the slider to view in overall which areas of the U.S. are affordable. The map will show in general what areas might be more affordable, and the table below gives more detailed information on the regions.
+    <p>Resources and libraries we use include:
+      <li><a href="https://plot.ly/ggplot2/">Plotly</a> for scatterplots, boxplots, histograms, area charts, etc...</li>
+      <li><a href="https://rstudio.github.io/leaflet/">Leaflet for R</a> for interactive maps</li>
+      <li><a href="http://shiny.rstudio.com/tutorial/">Shiny</a> for creating interactive web applications</li>
+      <li><a href="https://shiny.rstudio.com/articles/css.html">CSS</a> for styling our Shiny application and giving it a more polished look</li>
     </p>
   </div>
 
-  <div class="card">
-    <h5>What is the trend of prices of renting a home compared to buying a house for a given state?</h5>
-    <p class="subtitle">Rent vs. Sales</p>
-    <p>
-      After entering a state of interest, you can view the general trends of renting a home monthly compared to the general trends of buying a home. You can use this graph to generalize how much to expect prices of either renting/buying will change, as well as gain some insight on whether renting or buying would be more suited for you.
-    </p>
-  </div>
-</div> <!-- end col -->
+  <p class="extra" class="card">We answer multiple questions concerning rentals</p>
 
-<div class="col">
-  <div class="card">
-    <h5>What are the trends of monthly rent in different states by housing types?</h5>
-    <p class="subtitle">Rent trend plot</p>
-    <p>
-      After filtering what state, city, and home types you're interested in retrieving data for, the graph outputs a line graph of the median monthly rent from 2010 - 2019. You can use this graph to extrapolate what type of housing will be cheap or expensive in the state you'd like to live in for the next several years.
-    </p>
+  <div id="mid">
+    <div class="col">
+      <div class="card">
+        <h5>Based on the size of the city you'd like to live in, what areas are most affordable?</h5>
+        <p class="subtitle">Rent affordability map</p>
+        <p>
+          If you only prefer living in the largest cities, then you can filter out smaller cities. Otherwise, you can show a larger range of sizes of cities if that is not an important for you. After choosing a compatible city size, you can select on the slider to view in overall which areas of the U.S. are affordable. The map will show in general what areas might be more affordable, and the table below gives more detailed information on the regions.
+        </p>
+      </div>
+
+      <div class="card">
+        <h5>What is the trend of prices of renting a home compared to buying a house for a given state?</h5>
+        <p class="subtitle">Rent vs. Sales</p>
+        <p>
+          After entering a state of interest, you can view the general trends of renting a home monthly compared to the general trends of buying a home. You can use this graph to generalize how much to expect prices of either renting/buying will change, as well as gain some insight on whether renting or buying would be more suited for you.
+        </p>
+      </div>
+    </div> <!-- end col -->
+
+    <div class="col">
+      <div class="card">
+        <h5>What are the trends of monthly rent in different states by housing types?</h5>
+        <p class="subtitle">Rent trend plot</p>
+        <p>
+          After filtering what state, city, and home types you're interested in retrieving data for, the graph outputs a line graph of the median monthly rent from 2010 - 2019. You can use this graph to extrapolate what type of housing will be cheap or expensive in the state you'd like to live in for the next several years. Also, you can choose multiple house types if you want to compare and see the differences among the rent.
+        </p>
+      </div>
+
+      <div class="card">
+        <h5>What city matches your budget?</h5>
+        <p class="subtitle">City Finder Tool</p>
+        <p>
+          Insert your monthly income, then select what percentage of your income you can afford for rent. You can also select a specific type of home you'd like to live in, and a list of cities will show that fits within the amount of money you'd like spend on rent. By adjusting the percentage of your income, and the type of rental, you can use this tool to obtain a general idea of which cities are a good fit.
+        </p>
+      </div>
+    </div> <!-- end col -->
   </div>
 
-  <div class="card">
-    <h5>What city matches your budget?</h5>
-    <p class="subtitle">City Finder Tool</p>
-    <p>
-      Insert your monthly income, then select what percentage of your income you can afford for rent. You can also select a specific type of home you'd like to live in, and a list of cities will show that fits within the amount of money you'd like spend on rent.
-    </p>
+  <div id="team">
+    <div class="person">
+      <div class="avatar">
+        <img src="img/boy-2.png" alt="Alex">
+      </div>
+      <div class="blurb">
+        <h3>Alex Kim</h3>
+        <p>I’m a senior studying Sociology and Informatics, and I’ve yet to face the struggles of paying rent but will have to in the near future!</p>
+      </div>
+    </div>
+    <div class="person">
+      <div class="avatar">
+        <img src="img/woman-2.png" alt="Anita">
+      </div>
+      <div class="blurb">
+        <h3>Anita Leung</h3>
+        <p>I’m a senior studying Comoputer Science, and I've experienced the struggle with constantly checking all those housing Facebook groups for a good deal.</p>
+      </div>
+    </div>
+    <div class="person">
+      <div class="avatar">
+        <img src="img/boy-4.png" alt="Vlad">
+      </div>
+      <div class="blurb">
+        <h3>Vlad Rudenko</h3>
+        <p>I’m a senior studying business concentrating in accounting and information systems, and I’ve been struggling with rent for the past four years.</p>
+      </div>
+    </div>
+    <div class="person">
+      <div class="avatar">
+        <img src="img/woman.png" alt="Coco">
+      </div>
+      <div class="blurb">
+        <h3>Coco Li</h3>
+        <p>I’m a sophomore studying Mathematics, and I’ve been stuggling with finding a suitable apartment near campus!</p>
+      </div>
+    </div>
+    <div class="person">
+      <div class="avatar">
+        <img src="img/boy-3.png" alt="Jameson">
+      </div>
+      <div class="blurb">
+        <h3>Jameson McFarland</h3>
+        <p>I'm a junior studying business, with a concentration in Marketing. The housing crisis (especially in Seattle) is something that really interests me, so this data set was really fun to work with.</p>
+      </div>
+    </div>
   </div>
-</div> <!-- end col -->
-
-<p><em>This project was created by Vladislav Rudenko, Coco Li, Anita Leung, Alex Kim, and Jameson McFarland at the University of Washington for INFO 201.</em></p>
+</div>
