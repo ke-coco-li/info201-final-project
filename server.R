@@ -33,9 +33,20 @@ server <- shinyServer(function(input, output) {
     
   }, align = "c", digits = 3
   )
-
+  
+  city <- reactive({
+    validate(
+      need(input$chosen_state %in% c("AL","AK","AZ","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID",
+                                    "IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO",
+                                    "MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA",
+                                    "RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY")
+           ,"Please enter an eligibal abbreviation.")
+    )
+    input$chosen_state
+  })
+  
   output$select_city <- renderUI({
-    state <- input$chosen_state
+    state <- city()
     cities <- one_b %>% filter(grepl(state, RegionName))
     selectInput("chosen_city",
                 label = "Choose a metro city of your interest",
@@ -101,7 +112,7 @@ server <- shinyServer(function(input, output) {
   output$trend_plot <- renderPlot({
     reformat_colnames <- function(data) {
       r_data <- data %>% 
-        filter(input$chosen_city == RegionName) %>%
+        filter(RegionName == input$chosen_city) %>%
         select(-SizeRank)
       colnames(r_data) <- gsub("X", "", colnames(r_data))
       colnames(r_data) <- gsub("[.]", "-", colnames(r_data))

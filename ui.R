@@ -63,18 +63,18 @@ ui <- shinyUI(navbarPage(
   tabPanel(
     "Rent Trend Plot",
     titlePanel("Median Monthly Rent 2010-2019"),
-    p("As shown in the default plot, from 2010 to 2019, the median monthly rate within 
-      the scope of United States was in an increasing trend. It was quite stable during 
-      last 4 years and had a noticable drop between 2011 and 2014. For most of the states in the 
-      United States, the monthly rent trending was linearly increasing for the last 9 years, 
-      and may be continue rising in next few years."),
+    p("As shown in the default plot, from 2010 to 2019, the median monthly house rent in Seattle 
+      was in an increasing trend, and the increase rate was extremely high in the past 5 years. 
+      It was probably and reasonably caused by the promoting number of highly developed technology
+      companies in these years.For most of the states in the United States, the monthly rent 
+      trendings were also linearly increasing for the last 9 years, and may be continue rising in next few years."),
     sidebarLayout(
       sidebarPanel(
         textInput(
           "chosen_state", 
           label = "Type a state of your interest
           (use capitalized abbreviation, eg. WA)", 
-          value = "United States"
+          value = "WA"
         ),
         uiOutput("select_city"),
         checkboxGroupInput("home_types",
