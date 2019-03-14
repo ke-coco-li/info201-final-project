@@ -38,8 +38,6 @@ ui <- shinyUI(navbarPage(
           ),
           selected = 10
         ),
-
-        # 'sliderInput' to change the affordability % threshold - NEED TO EDIT
         sliderInput(
           "percentage",
           label = "Preferred Share of Income Spent on Rent",
