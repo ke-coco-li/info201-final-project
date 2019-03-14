@@ -183,7 +183,9 @@ ui <- shinyUI(navbarPage(
                      selected = "All Homes")
       ),
       mainPanel(
-        p(textOutput("budget")),
+        p(),
+        h3(textOutput("budget")),
+        p(),
         h3("Cities Closest to Your Rent Budget"),
         p("The following fifteen cities are recommended
           based on your specified budget and rental type.
